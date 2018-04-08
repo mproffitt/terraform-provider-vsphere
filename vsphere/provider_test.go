@@ -6,9 +6,9 @@ import (
 
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/terraform-providers/terraform-provider-null/null"
-	"github.com/terraform-providers/terraform-provider-random/random"
-	"github.com/terraform-providers/terraform-provider-template/template"
+	"github.com/mproffitt/terraform-provider-null/null"
+	"github.com/mproffitt/terraform-provider-random/random"
+	"github.com/mproffitt/terraform-provider-template/template"
 )
 
 var testAccProviders map[string]terraform.ResourceProvider

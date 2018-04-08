@@ -6,8 +6,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/envbrowse"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/provider"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/envbrowse"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/provider"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/find"
 	"github.com/vmware/govmomi/object"

@@ -5,11 +5,11 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/customattribute"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/datastore"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/folder"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/structure"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/viapi"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/customattribute"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/datastore"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/folder"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/structure"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/viapi"
 	"github.com/vmware/govmomi/vim25/types"
 )
 

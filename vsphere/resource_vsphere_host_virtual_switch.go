@@ -6,7 +6,7 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/structure"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/structure"
 )
 
 func resourceVSphereHostVirtualSwitch() *schema.Resource {

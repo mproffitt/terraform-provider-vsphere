@@ -65,12 +65,12 @@ version of the provider (see [the section above](#using-the-provider)).
 ## Cloning the Project
 
 First, you will want to clone the repository to
-`$GOPATH/src/github.com/terraform-providers/terraform-provider-vsphere`:
+`$GOPATH/src/github.com/mproffitt/terraform-provider-vsphere`:
 
 ```sh
-mkdir -p $GOPATH/src/github.com/terraform-providers
-cd $GOPATH/src/github.com/terraform-providers
-git clone git@github.com:terraform-providers/terraform-provider-vsphere
+mkdir -p $GOPATH/src/github.com/mproffitt
+cd $GOPATH/src/github.com/mproffitt
+git clone git@github.com:mproffitt/terraform-provider-vsphere
 ```
 
 ## Running the Build
@@ -79,7 +79,7 @@ After the clone has been completed, you can enter the provider directory and
 build the provider.
 
 ```sh
-cd $GOPATH/src/github.com/terraform-providers/terraform-provider-vsphere
+cd $GOPATH/src/github.com/mproffitt/terraform-provider-vsphere
 make build
 ```
 
@@ -100,8 +100,8 @@ match.
 work is not being duplicated. For further clarification, you can also ask in a
 new issue.
 
-[gh-issues]: https://github.com/terraform-providers/terraform-provider-vsphere/issues
-[gh-prs]: https://github.com/terraform-providers/terraform-provider-vsphere/pulls
+[gh-issues]: https://github.com/mproffitt/terraform-provider-vsphere/issues
+[gh-prs]: https://github.com/mproffitt/terraform-provider-vsphere/pulls
 
 If you wish to work on the provider, you'll first need [Go][go-website]
 installed on your machine (version 1.9+ is **required**). You'll also need to

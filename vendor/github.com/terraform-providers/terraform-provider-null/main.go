@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/plugin"
-	"github.com/terraform-providers/terraform-provider-null/null"
+	"github.com/mproffitt/terraform-provider-null/null"
 )
 
 func main() {

@@ -8,8 +8,8 @@ import (
 
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/mitchellh/copystructure"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/datastore"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/structure"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/datastore"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/structure"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/object"
 	"github.com/vmware/govmomi/vim25/types"

@@ -8,7 +8,7 @@ import (
 
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/virtualmachine"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/virtualmachine"
 )
 
 func TestAccResourceVSphereVirtualMachineSnapshot_basic(t *testing.T) {

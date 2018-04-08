@@ -773,31 +773,31 @@
 		},
 		{
 			"checksumSHA1": "4XfFiMO8Opac4TpQAgXHP15lnGw=",
-			"path": "github.com/terraform-providers/terraform-provider-null",
+			"path": "github.com/mproffitt/terraform-provider-null",
 			"revision": "1e016b8a70416ce036b2600870723cc6f13e2e20",
 			"revisionTime": "2017-12-12T00:16:12Z"
 		},
 		{
 			"checksumSHA1": "tpRT/o+MQkswqFE7LuaErqNmbaY=",
-			"path": "github.com/terraform-providers/terraform-provider-null/null",
+			"path": "github.com/mproffitt/terraform-provider-null/null",
 			"revision": "1e016b8a70416ce036b2600870723cc6f13e2e20",
 			"revisionTime": "2017-12-12T00:16:12Z"
 		},
 		{
 			"checksumSHA1": "hPKo72TB30MsBxn10cMgwdbvDTw=",
-			"path": "github.com/terraform-providers/terraform-provider-random",
+			"path": "github.com/mproffitt/terraform-provider-random",
 			"revision": "e6526ec8369cf8a96edee186f9e427dd9a9fb0b2",
 			"revisionTime": "2017-12-07T14:23:19Z"
 		},
 		{
 			"checksumSHA1": "im7uHwKCmfoorIMyOMADy8eodHg=",
-			"path": "github.com/terraform-providers/terraform-provider-random/random",
+			"path": "github.com/mproffitt/terraform-provider-random/random",
 			"revision": "e6526ec8369cf8a96edee186f9e427dd9a9fb0b2",
 			"revisionTime": "2017-12-07T14:23:19Z"
 		},
 		{
 			"checksumSHA1": "EUR26b2t3XDPxiEMwDBtn8Ajp8A=",
-			"path": "github.com/terraform-providers/terraform-provider-template/template",
+			"path": "github.com/mproffitt/terraform-provider-template/template",
 			"revision": "c28e0cec248a704ddbd5127bf47358609f1491aa",
 			"revisionTime": "2018-02-21T20:54:09Z"
 		},
@@ -1295,5 +1295,5 @@
 			"versionExact": "v1.6.1"
 		}
 	],
-	"rootPath": "github.com/terraform-providers/terraform-provider-vsphere"
+	"rootPath": "github.com/mproffitt/terraform-provider-vsphere"
 }

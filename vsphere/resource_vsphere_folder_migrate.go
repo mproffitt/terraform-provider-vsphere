@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/folder"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/folder"
 )
 
 // resourceVSphereFolderMigrateState is the master state migration function for

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/hostsystem"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/hostsystem"
 )
 
 func dataSourceVSphereHost() *schema.Resource {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/customattribute"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/customattribute"
 	"github.com/vmware/govmomi/object"
 )
 

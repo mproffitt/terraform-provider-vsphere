@@ -9,9 +9,9 @@ import (
 
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/datastore"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/folder"
-	"github.com/terraform-providers/terraform-provider-vsphere/vsphere/internal/helper/viapi"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/datastore"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/folder"
+	"github.com/mproffitt/terraform-provider-vsphere/vsphere/internal/helper/viapi"
 )
 
 func TestAccResourceVSphereVmfsDatastore_basic(t *testing.T) {
