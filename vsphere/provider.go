@@ -126,6 +126,7 @@ func Provider() terraform.ResourceProvider {
 			"vsphere_tag_category":               dataSourceVSphereTagCategory(),
 			"vsphere_virtual_machine":            dataSourceVSphereVirtualMachine(),
 			"vsphere_vmfs_disks":                 dataSourceVSphereVmfsDisks(),
+			"vsphere_csv":                        dataSourceVSphereCSV(),
 		},
 
 		ConfigureFunc: providerConfigure,
