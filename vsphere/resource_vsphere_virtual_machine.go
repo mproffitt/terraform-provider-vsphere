@@ -116,6 +116,12 @@ func resourceVSphereVirtualMachine() *schema.Resource {
 			Description:  "The amount of time, in minutes, to wait for a vMotion operation to complete before failing.",
 			ValidateFunc: validation.IntAtLeast(10),
 		},
+		"power": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Default:     true,
+			Description: "Set the power status of the VM - normally powered on. Will prevent the machine being read if set to false",
+		},
 		"force_power_off": {
 			Type:        schema.TypeBool,
 			Optional:    true,
@@ -293,11 +299,34 @@ func resourceVSphereVirtualMachineRead(d *schema.ResourceData, meta interface{})
 		return fmt.Errorf("error fetching VM properties: %s", err)
 	}
 
+	if d.Get("power").(bool) {
+		if vprops.Runtime.PowerState != types.VirtualMachinePowerStatePoweredOn {
+			// start VM and wait for up
+			if err := virtualmachine.PowerOn(vm); err != nil {
+				return fmt.Errorf("error powering on virtual machine: %s", err)
+			}
+			err = virtualmachine.WaitForGuestNet(
+				client,
+				vm,
+				d.Get("wait_for_guest_net_routable").(bool),
+				d.Get("wait_for_guest_net_timeout").(int),
+			)
+			if err != nil {
+				return err
+			}
+		}
+	} else {
+		if vprops.Runtime.PowerState == types.VirtualMachinePowerStatePoweredOff {
+			return nil
+		}
+	}
+
 	// Set the managed object id.
 	moid := vm.Reference().Value
 	d.Set("moid", moid)
 	log.Printf("[DEBUG] MOID for VM %q is %q", vm.InventoryPath, moid)
 
+	d.Set("power", true)
 	// Reset reboot_required. This is an update only variable and should not be
 	// set across TF runs.
 	d.Set("reboot_required", false)
@@ -313,9 +342,10 @@ func resourceVSphereVirtualMachineRead(d *schema.ResourceData, meta interface{})
 	// Set the folder
 	f, err := folder.RootPathParticleVM.SplitRelativeFolder(vm.InventoryPath)
 	if err != nil {
-		return fmt.Errorf("error parsing virtual machine path %q: %s", vm.InventoryPath, err)
+		log.Printf("[DEBUG] error parsing virtual machine path %q: %s", vm.InventoryPath, err)
+	} else {
+		d.Set("folder", folder.NormalizePath(f))
 	}
-	d.Set("folder", folder.NormalizePath(f))
 	// Set VM's current host ID if available
 	if vprops.Runtime.Host != nil {
 		d.Set("host_system_id", vprops.Runtime.Host.Value)
@@ -446,6 +476,18 @@ func resourceVSphereVirtualMachineUpdate(d *schema.ResourceData, meta interface{
 	vprops, err := virtualmachine.Properties(vm)
 	if err != nil {
 		return fmt.Errorf("error fetching VM properties: %s", err)
+	}
+
+	if !d.Get("power").(bool) && vprops.Runtime.PowerState != types.VirtualMachinePowerStatePoweredOff {
+		// Attempt a graceful shutdown of this process. We wrap this in a VM helper.
+		timeout := d.Get("shutdown_wait_timeout").(int)
+		force := d.Get("force_power_off").(bool)
+		if err := virtualmachine.GracefulPowerOff(client, vm, timeout, force); err != nil {
+			return fmt.Errorf("error shutting down virtual machine: %s", err)
+		}
+		d.Set("power", false)
+		d.Partial(false)
+		return resourceVSphereVirtualMachineRead(d, meta)
 	}
 
 	spec, changed, err := expandVirtualMachineConfigSpecChanged(d, client, vprops.Config)
