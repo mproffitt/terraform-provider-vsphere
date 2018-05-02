@@ -310,12 +310,14 @@ func resourceVSphereVirtualMachineRead(d *schema.ResourceData, meta interface{})
 	if vprops.ResourcePool != nil {
 		d.Set("resource_pool_id", vprops.ResourcePool.Value)
 	}
+
 	// Set the folder
 	f, err := folder.RootPathParticleVM.SplitRelativeFolder(vm.InventoryPath)
 	if err != nil {
-		return fmt.Errorf("error parsing virtual machine path %q: %s", vm.InventoryPath, err)
+		log.Printf("[DEBUG] error parsing virtual machine path %q: %s", vm.InventoryPath, err)
+	} else {
+		d.Set("folder", folder.NormalizePath(f))
 	}
-	d.Set("folder", folder.NormalizePath(f))
 	// Set VM's current host ID if available
 	if vprops.Runtime.Host != nil {
 		d.Set("host_system_id", vprops.Runtime.Host.Value)

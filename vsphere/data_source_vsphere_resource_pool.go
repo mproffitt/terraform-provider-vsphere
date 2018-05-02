@@ -19,6 +19,11 @@ func dataSourceVSphereResourcePool() *schema.Resource {
 				Description: "The name or path of the resource pool.",
 				Optional:    true,
 			},
+			"parent_vapp": {
+				Type:        schema.TypeString,
+				Description: "The name or path of the vapp.",
+				Optional:    true,
+			},
 			"datacenter_id": {
 				Type:        schema.TypeString,
 				Description: "The managed object ID of the datacenter the resource pool is in. This is not required when using ESXi directly, or if there is only one datacenter in your infrastructure.",
@@ -31,10 +36,13 @@ func dataSourceVSphereResourcePool() *schema.Resource {
 func dataSourceVSphereResourcePoolRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*VSphereClient).vimClient
 
-	name := d.Get("name").(string)
+	pool := d.Get("name").(string)
+	vApp := d.Get("parent_vapp").(string)
 	if err := viapi.ValidateVirtualCenter(client); err == nil {
-		if name == "" {
-			return fmt.Errorf("name cannot be empty when using vCenter")
+		if vApp == "" {
+			if pool == "" {
+				return fmt.Errorf("name cannot be empty when using vCenter")
+			}
 		}
 	}
 
@@ -46,7 +54,7 @@ func dataSourceVSphereResourcePoolRead(d *schema.ResourceData, meta interface{})
 			return fmt.Errorf("cannot locate datacenter: %s", err)
 		}
 	}
-	rp, err := resourcepool.FromPathOrDefault(client, name, dc)
+	rp, err := resourcepool.FromPathOrDefault(client, vApp, pool, dc)
 	if err != nil {
 		return fmt.Errorf("error fetching resource pool: %s", err)
 	}

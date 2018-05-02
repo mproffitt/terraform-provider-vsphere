@@ -15,7 +15,7 @@ import (
 )
 
 // FromPathOrDefault returns a ResourcePool via its supplied path.
-func FromPathOrDefault(client *govmomi.Client, name string, dc *object.Datacenter) (*object.ResourcePool, error) {
+func FromPathOrDefault(client *govmomi.Client, vAppPath string, resourcePoolPath string, dc *object.Datacenter) (*object.ResourcePool, error) {
 	finder := find.NewFinder(client.Client, false)
 
 	ctx, cancel := context.WithTimeout(context.Background(), provider.DefaultAPITimeout)
@@ -33,10 +33,28 @@ func FromPathOrDefault(client *govmomi.Client, name string, dc *object.Datacente
 		if dc != nil {
 			finder.SetDatacenter(dc)
 		}
-		if name != "" {
-			return finder.ResourcePool(ctx, name)
+
+		var virtualApp *object.VirtualApp
+		var resourcePool *object.ResourcePool
+		var err error
+
+		resourcePool, err = finder.DefaultResourcePool(ctx)
+		if vAppPath != "" {
+			virtualApp, err = finder.VirtualApp(ctx, vAppPath)
+			if resourcePoolPath != "" {
+				resourcePool, err = finder.ResourcePool(ctx, virtualApp.InventoryPath+"/"+resourcePoolPath)
+			} else {
+				resourcePool = virtualApp.ResourcePool
+			}
+		} else {
+			if resourcePoolPath != "" {
+				resourcePool, err = finder.ResourcePool(ctx, resourcePoolPath)
+			}
 		}
-		return finder.DefaultResourcePool(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return resourcePool, nil
 	}
 	return nil, fmt.Errorf("unsupported ApiType: %s", t)
 }
@@ -50,13 +68,13 @@ func FromID(client *govmomi.Client, id string) (*object.ResourcePool, error) {
 		Type:  "ResourcePool",
 		Value: id,
 	}
-
 	ctx, cancel := context.WithTimeout(context.Background(), provider.DefaultAPITimeout)
 	defer cancel()
 	obj, err := finder.ObjectReference(ctx, ref)
 	if err != nil {
 		return nil, err
 	}
+
 	log.Printf("[DEBUG] Resource pool found: %s", obj.Reference().Value)
 	return obj.(*object.ResourcePool), nil
 }
